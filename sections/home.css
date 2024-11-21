@@ -28,7 +28,7 @@ h4 {
 .nav-items {
   font-size:1.2em;
   background: var(--cp1); color:#000;
-  padding:.5em 1em; width:fit-content;
+  padding:.5em 1em; width:100%;
   border-radius:13px;
   font-family: "Aldrich", sans-serif;
   cursor:pointer;

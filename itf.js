@@ -1,4 +1,4 @@
-var itf_s = ["home", "startg"]; //, "setg", "gdesc"
+var itf_s = ["home", "startg"]; //, "setg", "gdesc", "lboard"
 function setpages(pagenames) {
   if (itf_s.includes(pagenames)) {
     var itf_sc = document.querySelector(pagenames + ".css");
@@ -13,7 +13,9 @@ function setpages(pagenames) {
       document.head.appendChild(itf_sc);
     }
     itf_sc.setAttribute("href", "sections/" + pagenames + ".css");
-  } else {console.error("WTF ARE YOU TRYING TO DO?? There's nothing like that, idiot.")}
+  } else {
+    alert("That page is not exist, yet.")
+    console.error("WTF ARE YOU TRYING TO DO?? There's nothing like that, idiot.")}
   return;
 }
 
