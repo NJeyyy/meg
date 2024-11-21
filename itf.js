@@ -18,7 +18,7 @@ function setpages(pagenames) {
 }
 
 (async function () {
-  setpages(itf_s[1]);
+  setpages(itf_s[0]);
   await waitFor(_ => SE(".nav-items"));
   SE(".nav-items").forEach(elm => {
     elm.addEventListener("click", (e) => {
