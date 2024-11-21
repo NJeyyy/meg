@@ -1,7 +1,7 @@
 """
 Basic math problems.
 As alternative since I cant use tt rockstars DANGIT.
-for framework: Kivy.
+for framework: Bottle. (can't use Kivy because termux don't support GUI, so we'll use webpage.)
 
 But first, gonna work with the algorithm first.
 Basic arithmetics.
