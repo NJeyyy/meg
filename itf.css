@@ -3,3 +3,12 @@
   --cp1:#ff5656;
   --cp2: #44c776;
 }
+input[type=number]::-webkit-outer-spin-button, /* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] { /* Firefox */
+  -moz-appearance: none;
+  appearance: textfield;
+}
