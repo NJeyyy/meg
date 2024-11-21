@@ -1,9 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Barriecito&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
+#pagecred {
+  position: absolute;
+  bottom:0; margin-bottom:5px; text-decoration:underline;
+  cursor:pointer; font-family: "Noto Sans", Consolas;
+  font-weight:bold;
+}
 h1 {
   font-family: "Barriecito", Arial;
+  font-size:6rem; margin:0;
 }
 h4 {
   font-family: "Noto Sans", Consolas;
+  margin:0; font-size:1.5rem;
+}
+#page_main{
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  height:100vh; text-align:center;
+}
+#navbtn {
+  margin: .5rem 0;
+  display:flex; align-items:center; flex-direction:column;
+  user-select: none;
+}
+.nav-items {
+  font-size:1.2em;
+  background: var(--cp1); color:#000;
+  padding:.5em 1em; width:fit-content;
+  border-radius:13px;
+  font-family: "Aldrich", sans-serif;
+  cursor:pointer;
+}
+.nav-items:not(:last-child){
+  margin-bottom:1em;
+}
+.nav-items:active {
+  background: var(--cp2);
 }

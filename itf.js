@@ -1,4 +1,4 @@
-var itf_s="home"
+var itf_s=["home", ]
 var itf_sc=document.querySelector(itf_s+".css")
 $.ajax({type: "GET", url:"sections/"+itf_s+".html", success: (res)=>{
   $("body").html(res);
