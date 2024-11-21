@@ -2,6 +2,7 @@
 :root {
   --cp1:#ff5656;
   --cp2: #44c776;
+  --cp3: #ff7b2f;
 }
 input[type=number]::-webkit-outer-spin-button, /* Chrome, Safari, Edge, Opera */
 input[type=number]::-webkit-inner-spin-button {

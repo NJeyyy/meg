@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Iceberg&display=swap');
+
+
+#plygnd {
+  user-select:none;
+  display:grid; gap:10px;
+  justify-content:center; align-content:center;
+  height: 100vh; font-size:4rem;
+  font-family:"Icerberg", sans-serif;
+}
+#plygnd input, #plygnd button {font-size:inherit; color:#000;}
+#p-output {text-align:center; padding:.5em; background:#f1de86; border-radius:5px;}
+#p-output input{
+  background:#f1b686;
+  border:none;outline:none; border-radius:5px;
+  padding:.2em;
+}
+#p-input{
+  display:grid; gap: .2em;
+  grid-template-areas: "a a a"
+  "a a a"
+  "a a a";
+}
+#plygnd button {
+  cursor:pointer; width:100%;
+  background:var(--cp3);
+  border-radius:15px; border-color:#d3d3d373;
+}
+#plygnd button:active {background:var(--cp1);}
