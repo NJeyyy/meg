@@ -1,9 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Iceberg&display=swap');
 
+@media (min-width:600px) {
+  #plygnd {gap:15px;}
+}
+@media (max-width:600px) {
+  #plygnd {gap:3em;}
+}
 
 #plygnd {
   user-select:none;
-  display:grid; gap:15px;
+  display:grid;
   justify-content:center; align-content:center;
   height: 100vh; font-size:4rem;
   font-family:"Icerberg", sans-serif;

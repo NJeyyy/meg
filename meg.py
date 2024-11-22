@@ -14,15 +14,10 @@ branch of mathematics / puzzle i wanted to add:
 > Series of numbers
 > KPK & FPB
 
-Below is the settings.
+The settings is in a file named meg_stg.ini
 """
-#difficulty not exist yet.
-maxnum=30 #insert in integer/float value
-enable_timer=True # enable/disable stopwatch
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #preparing
-import math
-import random
+import configparser
 import re
 from termcolor import cprint, colored
 import time
@@ -32,10 +27,11 @@ import json
 from tabulate import tabulate
 import signal as sg
 import sys
-import string
+import meg_f
 
-
-
+setin=configparser.ConfigParser()
+setin.read("meg_stg.ini")
+enable_timer=setin["DEFAULT"]["enable_timer"]
 pl=True #to start the looping of the game until it stopped
 tq=0 #number of question solved
 tf=0 #number of failed attempts
@@ -52,21 +48,7 @@ def handle_exit(signum, frame):
 sg.signal(sg.SIGINT, handle_exit)
 
 #the mathematics branches
-opran = {
-  '+': lambda a, b: a + b, 
-  '-': lambda a, b: a - b,
-  '*': lambda a, b: a * b, 
-  '/': lambda a, b: a / b,
-}
-
-
-
-def mathprob(m=0): #core code for the game
-  n = [random.randint(1,maxnum) for x in range(2)]
-  if(m==0):
-    ot=random.choice(list(opran.keys()))
-    return n[0], n[1], ot, round(opran[ot](n[0], n[1]), 2)
-    
+opran = meg_f.opran  
 
 #action
 if(len(trd)==0):
@@ -97,7 +79,7 @@ if(enable_timer):
   cdt=dt.now()
 nitr=1 #question index
 while(pl):
-  n1, n2, op, res=mathprob() #generate problems
+  n1, n2, op, res=meg_f.mathprob() #generate problems
   print(f"{nitr}.]  {n1} {op} {n2} = ?")
   while(True): #loop until answer is correct
     try:

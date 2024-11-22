@@ -1,6 +1,7 @@
 from bottle import response, request, template, static_file
 import bottle
-from meg import mathprob, opran #from the terminal-version
+from meg_f import mathprob, opran #from the terminal-version
+import webbrowser
 
 itfp = bottle.app()
 class EnableCors(object):
