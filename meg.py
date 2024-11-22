@@ -12,12 +12,13 @@ branch of mathematics / puzzle i wanted to add:
 > Integral
 > Statistic
 > Series of numbers
+> KPK & FPB
 
 Below is the settings.
 """
 #difficulty not exist yet.
 maxnum=30 #insert in integer/float value
-enable_timer=True # enable/disable timer
+enable_timer=True # enable/disable stopwatch
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #preparing
 import math
@@ -35,10 +36,10 @@ import string
 
 
 
-pl=True
-tq=0
-tf=0
-strd=osp.join(osp.dirname(__file__), "meg_score.json")
+pl=True #to start the looping of the game until it stopped
+tq=0 #number of question solved
+tf=0 #number of failed attempts
+strd=osp.join(osp.dirname(__file__), "meg_score.json") #path to the saved score
 try:
   with open(strd) as f:
     trd = json.load(f)
@@ -60,7 +61,7 @@ opran = {
 
 
 
-def mathprob(m=0):
+def mathprob(m=0): #core code for the game
   n = [random.randint(1,maxnum) for x in range(2)]
   if(m==0):
     ot=random.choice(list(opran.keys()))
@@ -70,7 +71,7 @@ def mathprob(m=0):
 #action
 if(len(trd)==0):
   cprint(" you don't have any saved history to show. ", "magenta", "on_white")
-else:
+else: #show leaderboard (if the data exist)
   besc=[]
   for i in trd:
     t=trd[i].copy()
@@ -88,46 +89,47 @@ else:
   cprint("Your TOP 5 Score", "light_blue", "on_white")
   print(tabulate(b_esc[0:5], headers=hdr,tablefmt="grid", colalign=("center", "center", "center", "center","center")), "\n")
 
+#waits for the user to start the game
 input("Press [ENTER] to start..!  "+colored("or Press [CTRL]+C to exit.", "dark_grey"))
-print(".\n.\n.\n")
-# Print the table
+print(".\n.\n.\n") #just a divider
 if(enable_timer):
   tmr = time.time() #start a timer
   cdt=dt.now()
-nitr=1
+nitr=1 #question index
 while(pl):
-  n1, n2, op, res=mathprob()
+  n1, n2, op, res=mathprob() #generate problems
   print(f"{nitr}.]  {n1} {op} {n2} = ?")
-  while(True):
+  while(True): #loop until answer is correct
     try:
       usr=re.sub("\\s", "", input("Your answer: "))
-      if(len(usr)==0):
+      if(len(usr)==0): #quit/stop immediately if empty
         pl=False
       elif(float(usr)!=res):
-        tf+=1
+        tf+=1 #increment of the failed attempt
         continue
-      elif(float(usr)==res): tq+=1
+      elif(float(usr)==res): tq+=1 #question is solved
       break
     except ValueError:
       cprint("Number Only.", "light_red")
   nitr+=1
 
-if(enable_timer):
+if(enable_timer): #stopwatch
   et = time.time() - tmr
   hr,mins,secs=0,0,0
-  if(et//3600!=0):
+  if(et//3600!=0): #if it contains at least an hour
     hr=int(et//3600)
     mins=int((et%3600)//60)
     secs=(et%3600)%60
-  elif(et//60!=0):
+  elif(et//60!=0): #if it contains at least a minute
     mins=int(et//60)
     secs=et%60
   else: secs=et
   secs=round(secs,3)
-if(tq==0):
+if(tq==0): #if no question is solved
   scr="N/A"
   cprint("Score is invalid because you didn't finish solving any question.", "light_red")
 else: scr=round((tq-tf)/tq*100,1)
+#result of the session
 cprint(f"""Oh!.. Okay.
 Here's your score: {scr}
 You failed: {tf} time(s)
@@ -140,17 +142,16 @@ if(tq!=0):
   usr=input("want to save your score? [Y?]\n*Skipping or anything outside the option will cancel this action.\n>").lower()
   if(usr=="y"):
     cdt=dt.now().strftime("%d/%m/%y")
-    if cdt in trd and not (cdt+" (2)" in trd):
+    if cdt in trd and not (cdt+" (2)" in trd): # if this is the second attempt on the same day
       cdt+=" (2)"
       print("2")
-    elif cdt+" (2)" in trd:
+    elif cdt+" (2)" in trd: #if more than 2 attempts
       b=[]
       for i in trd.items():
         a=re.search("\\(\\d+\\)$", i[0])
         if a:
           b.append(re.sub("[\\(\\)]", "", a.group()))
       cdt+=" ("+str(int(max(b))+1)+")"
-      print("nah")
     trd.update({cdt: {
         "time_record": f"{hr:02}:{mins:02}:{secs:02}",
         "total_solved": tq,

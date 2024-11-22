@@ -1,5 +1,6 @@
 from bottle import response, request, template, static_file
 import bottle
+from meg import mathprob, opran #from the terminal-version
 
 itfp = bottle.app()
 class EnableCors(object):
@@ -12,7 +13,7 @@ class EnableCors(object):
       response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, OPTIONS, DELETE'
       response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'
       if bottle.request.method != 'OPTIONS':
-        # actual request; reply with the actual response
+        # actual request
         return fn(*args, **kwargs)
     return _enable_cors
 
@@ -24,7 +25,9 @@ def serve_static(filepath):
 def loadp():
   return template("itf.html")
 
-
+"""
+n1, n2, op, res=mathprob() #generate problems
+"""
 itfp.install(EnableCors())
 if __name__ == "__main__":
   itfp.run(host='localhost', port = 8080)
