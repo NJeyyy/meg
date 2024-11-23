@@ -8,16 +8,14 @@
   h4 { font-size:1.5rem;}
   .nav-items{font-size:1.2em;}
   #navbtn{margin-top: .5rem;}
-  #pagecred{font-size: 1em;}
 }
 @media (max-width: 600px) {
   h1 {
-    font-size: 21rem;
+    font-size: 7rem;
   }
-  h4 { font-size:2rem;}
-  .nav-items{font-size:2.7em;}
-  #navbtn{margin-top: 11.5rem;}
-  #pagecred {font-size: 3em;}
+  h4 { font-size:1.7rem;}
+  .nav-items{font-size:1.2em;}
+  #navbtn{margin-top: 1em;}
 }
 #pagecred {
   position: absolute;
@@ -35,7 +33,7 @@ h4 {
 }
 #page_main{
   display:flex; flex-direction:column;
-  justify-content:center; align-items:center;
+  align-items:center; justify-content:center;
   height:100vh; text-align:center;
 }
 #navbtn {
