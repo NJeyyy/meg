@@ -7,16 +7,19 @@
     <button class="calcin">1</button> <button class="calcin">2</button> <button class="calcin">3</button>
     <button class="calcin">4</button> <button class="calcin">5</button> <button class="calcin">6</button>
     <button class="calcin">7</button> <button class="calcin">8</button> <button class="calcin">9</button>
-    <div style="display:flex;gap:5px">
-      <button id="pin-del"><i class="fa-solid fa-delete-left"></i></button>
-      <button class="calcin">.</button></div>
+    <button id="pin-del"><i class="fa-solid fa-delete-left"></i></button>
     <button class="calcin">0</button><button id="pin-enter"><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
   </div>
   <script>
     SE(".calcin").forEach(elm => {
       elm.addEventListener("click", (e)=>{
-        ISE("#p-output input").value += e.target.innerHTML;
+        let vl = e.target.innerHTML;
+        ISE("#p-output input").value +=vl;
       });
     });
+    ISE("#pin-del").addEventListener("click", ()=>{
+      let elt = ISE("#p-output input"); //target element
+      elt.value = elt.value.slice(0, -1);
+    })
   </script>
 </div>

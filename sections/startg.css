@@ -1,27 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Iceberg&display=swap');
 
-@media (min-width:600px) {
-  #plygnd {gap:15px;}
+@media (min-width:600px) { /*desktop view*/
+  #plygnd {gap:15px; font-size:4vw;}
+  #p-output p {font-size: 5vw;}
 }
-@media (max-width:600px) {
-  #plygnd {gap:3em;}
+@media (max-width:600px) { /*mobile view*/
+  #plygnd {gap:3em; font-size:2rem;}
+  #p-output{width:80%; margin: auto;}
+  #p-output input {width: 90%;}
+  #p-output p {font-size:2rem;}
+  .calcin{padding: .3em 0;}
+  #p-input{margin: 0 .5em;}
 }
 
 #plygnd {
   user-select:none;
   display:grid;
   justify-content:center; align-content:center;
-  height: 100vh; font-size:4rem;
-  font-family:"Icerberg", sans-serif;
+  height: 95vh;
 }
-#plygnd input, #plygnd button {font-size:inherit; color:#000;}
+#plygnd input, #plygnd button {font-size:inherit; color:#000; font-family:"Iceberg", sans-serif;}
 #p-output {text-align:center; padding:.5em; background:#f1de86; border-radius:5px;}
 #p-output input{
   background:#f1b686;
   border:none;outline:none; border-radius:5px;
   padding:.2em;
 }
-#p-output p {margin:.5rem; margin-bottom:1rem; font-size:5rem;}
+#p-output p {margin:.5rem; margin-bottom:1rem; font-family:"Iceberg", sans-serif;}
 #p-input{
   display:grid; gap: .2em;
   grid-template-areas: "a a a"
