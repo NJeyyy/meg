@@ -1,9 +1,10 @@
 import random
 import configparser
+import os.path
 
 setin=configparser.ConfigParser()
-setin.read("meg_stg.ini")
-maxnum=setin["DEFAULT"]["maxnum"]
+print(setin.read(os.path.join(os.path.dirname(__file__), "meg_stg.ini")))
+maxnum=int(setin["DEFAULT"]["maxnum"])
 
 opran = {
   '+': lambda a, b: a + b, 
