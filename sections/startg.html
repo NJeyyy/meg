@@ -1,11 +1,11 @@
 <div id="gtoolbar">
-  <div id="gbackbtn"><i class="material-symbols-outlined">keyboard_return</i></div>
+  <div id="gbackbtn"><span class="material-symbols-outlined">keyboard_return</span></div>
   <div id="gpausebtn"><i class="fa-solid fa-circle-pause"></i></div>
 </div>
 <div id="plygnd">
   <div id="p-output">
     <p></p>
-    <input type="number"/>
+    <input type="number" />
   </div>
   <div id="p-input">
     <button class="calcin">1</button> <button class="calcin">2</button> <button class="calcin">3</button>
@@ -14,19 +14,37 @@
     <button id="pin-del"><i class="fa-solid fa-delete-left"></i></button>
     <button class="calcin">0</button><button id="pin-enter"><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
   </div>
-  <script>
-    SE(".calcin").forEach(elm => {
-      elm.addEventListener("click", (e)=>{
-        let vl = e.target.innerHTML;
-        ISE("#p-output input").value +=vl;
-      });
-    });
-    ISE("#pin-del").addEventListener("click", ()=>{
-      let elt = ISE("#p-output input"); //target element
-      elt.value = elt.value.slice(0, -1);
-    })
-  </script>
 </div>
-<div id="eval_ply">
+<div id="eval_ply" hidden>
   <!-- score, total failed, total solved, timer -->
+  <label evalt="score">Score </label> <span></span>
+  <label evalt="total_failed">Total Failed attempt(s) </label> <span></span>
+  <label evalt="total_solved">Total Solved problem(s) </label> <span></span>
+  <label evalt="timer">You did it in </label> <span></span>
 </div>
+<script>
+  ISE("#gbackbtn").addEventListener("click", () => {
+    setpages("home");
+  });
+  ISE("#gpausebtn").addEventListener("click", (e) => {
+    elt=e.target;
+    if(elt.classList.contains("fa-circle-pause")) {
+      elt.classList.remove("fa-circle-pause");
+      elt.classList.add("fa-circle-play");
+    } else {
+      elt.classList.remove("fa-circle-play");
+      elt.classList.add("fa-circle-pause");
+    }
+  });
+
+  SE(".calcin").forEach(elm => {
+    elm.addEventListener("click", (e) => {
+      let vl = e.target.innerHTML;
+      ISE("#p-output input").value += vl;
+    });
+  });
+  ISE("#pin-del").addEventListener("click", () => {
+    let elt = ISE("#p-output input"); //target element
+    elt.value = elt.value.slice(0, -1);
+  })
+</script>

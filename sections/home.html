@@ -9,13 +9,18 @@
   </div>
   <!--<div id="test">gada yah.</div>-->
   <div id="pagecred">Credits</div>
-  <!--<script>
-    fetch("http://localhost:8080/trsrh")
+  <script>
+    SE(".nav-items").forEach(elm => {
+      elm.addEventListener("click", (e) => {
+        setpages(e.target.getAttribute("spage"));
+      });
+  });
+    /*fetch("http://localhost:8080/trsrh")
     .then(e => e.json())
     .then(e => {
       console.log(e);
       document.querySelector("#test").innerHTML=e["a"];
     })
-    .catch(e => console.error("The error is: ", e))
-  </script>-->
+    .catch(e => console.error("The error is: ", e))*/
+  </script>
 </div>

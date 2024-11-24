@@ -1,8 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Iceberg&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Offside&display=swap');
 
+
+*[hidden]{display:none !important;}
 @media (min-width:600px) { /*desktop view*/
   #plygnd {gap:15px; font-size:4vw;}
   #p-output p {font-size: 5vw;}
+  #eval_ply {font-size:2.5vw; box-shadow:14px 13px 0px 6px #22222282;
+    column-gap:2em;}
 }
 @media (max-width:600px) { /*mobile view*/
   #plygnd {gap:3em; font-size:2rem;}
@@ -11,6 +18,9 @@
   #p-output p {font-size:2rem;}
   .calcin{padding: .3em 0;}
   #p-input{margin: 0 .5em;}
+  #eval_ply{box-shadow:12px 11px 0px 1px #22222282;
+  column-gap:1em;}
+  #eval_ply label[evalt="timer"]+span{grid-column:1;}
 }
 
 #plygnd {
@@ -39,3 +49,26 @@
   border-radius:15px; border-color:#d3d3d373;
 }
 #plygnd button:active {background:var(--cp1);}
+
+#gtoolbar {
+  width:100%; display:grid; user-select:none;
+  grid-auto-flow:column; justify-content:space-between;
+  align-items:center; padding:0 .3em; box-sizing:border-box;
+}
+#gpausebtn {font-size:3rem; color:var(--cp4); cursor:pointer;}
+#gbackbtn {background-color:var(--cp4); border-radius:18px; padding:.2rem .3rem; cursor:pointer;}
+#gbackbtn span{color:white; font-size:2.5rem; font-weight:600;}
+
+#eval_ply{
+  font-family: "Lexend", sans-serif; align-items:center;
+  display:grid; align-content:center;
+  width:max-content; margin:25vh auto; row-gap:.2em;
+  grid-template-areas:"a b"
+  "a b"
+  "a b";
+  background:#fff; border-radius:15px;
+  padding:.7em 1em;
+}
+#eval_ply label[evalt="score"]+span, #eval_ply label[evalt="score"] {font-size:2em;}
+#eval_ply label[evalt="score"]+span {font-family:"Mr Dafoe", cursive; font-weight:bold; /*color:rgb(0, 216, 0);*/}
+#eval_ply label[evalt="timer"]+span {font-family:"Offside", sans-serif;}
