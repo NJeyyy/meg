@@ -1,9 +1,9 @@
 from bottle import response, request, template, static_file
 import bottle
-from meg_f import mathprob, opran #from the terminal-version
-import webbrowser
+from meg_f import mathprob #from the terminal-version
+import json
 
-itfp = bottle.app()
+itfp = bottle.Bottle()
 class EnableCors(object):
   name = 'enable_cors'
   api = 2
@@ -26,9 +26,18 @@ def serve_static(filepath):
 def loadp():
   return template("itf.html")
 
-"""
-n1, n2, op, res=mathprob() #generate problems
-"""
+@itfp.route("/genpy")
+def generate_ply():
+  n1, n2, op, res=mathprob()
+  response.content_type = "application/json"
+  return json.dumps({"n1": n1, "n2": n2, "op": op, "res": res})
+@itfp.post("/genps")
+def getdata():
+  a=request.json
+  response.content_type = "application/json"
+  print(a)
+  return a
+
 itfp.install(EnableCors())
 if __name__ == "__main__":
   itfp.run(host='localhost', port = 8080)

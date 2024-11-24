@@ -11,7 +11,8 @@
     <button class="calcin">1</button> <button class="calcin">2</button> <button class="calcin">3</button>
     <button class="calcin">4</button> <button class="calcin">5</button> <button class="calcin">6</button>
     <button class="calcin">7</button> <button class="calcin">8</button> <button class="calcin">9</button>
-    <button id="pin-del"><i class="fa-solid fa-delete-left"></i></button>
+    <div style="display:flex; gap:.2em;"><button id="pin-del"><i class="fa-solid fa-delete-left"></i></button><button
+        id="posneg">-/+</button></div>
     <button class="calcin">0</button><button id="pin-enter"><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
   </div>
 </div>
@@ -27,8 +28,8 @@
     setpages("home");
   });
   ISE("#gpausebtn").addEventListener("click", (e) => {
-    elt=e.target;
-    if(elt.classList.contains("fa-circle-pause")) {
+    elt = e.target;
+    if (elt.classList.contains("fa-circle-pause")) {
       elt.classList.remove("fa-circle-pause");
       elt.classList.add("fa-circle-play");
     } else {
@@ -46,5 +47,33 @@
   ISE("#pin-del").addEventListener("click", () => {
     let elt = ISE("#p-output input"); //target element
     elt.value = elt.value.slice(0, -1);
-  })
+  });
+  ISE("#posneg").addEventListener("click", () => {
+    let val = ISE("#p-output input").value;
+    if (val.startsWith('-')) {
+      ISE("#p-output input").value = val.slice(1);
+    } else {
+      ISE("#p-output input").value = '-' + val;
+    }
+  });
+
+  fetch(location.href+"genpy")
+    .then(e => e.json())
+    .then(e => {
+      console.log(e);
+    })
+    .catch(e => console.error("The error is: ", e))
+  $.ajax({
+    type: 'POST',
+    url: location.href+"genps",
+    data: JSON.stringify({
+      "no": 1,
+      "name": "BRISIK",
+      "address": "ydh",
+    }),
+    contentType: "application/json",
+    success: (re)=>{
+      console.log(re.result);
+    }, error: (e)=>{console.error("bitchess: ",e);}
+  });
 </script>
