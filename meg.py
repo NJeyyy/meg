@@ -32,15 +32,17 @@ import meg_f
 setin=configparser.ConfigParser()
 setin.read("meg_stg.ini")
 enable_timer=setin["DEFAULT"]["enable_timer"]
+isLocal=setin["DEFAULT"]["isLocal"]
 pl=True #to start the looping of the game until it stopped
 tq=0 #number of question solved
 tf=0 #number of failed attempts
-strd=osp.join(osp.dirname(__file__), "meg_score.json") #path to the saved score
-try:
-  with open(strd) as f:
-    trd = json.load(f)
-except (json.JSONDecodeError, FileNotFoundError):
-  trd={}
+if isLocal:
+  strd=osp.join(osp.dirname(__file__), "meg_score.json") #path to the saved score
+  try:
+    with open(strd) as f:
+      trd = json.load(f)
+  except (json.JSONDecodeError, FileNotFoundError):
+    trd={}
 # Register the handler with the SIGINT (Signal Interrupt or when CTRL+C is pressed) signal
 def handle_exit(signum, frame):
   cprint("Alright!..\nStopping the program...", "red")
@@ -139,6 +141,7 @@ if(tq!=0):
         "total_solved": tq,
         "score": scr
       }})
-    with open(strd, "w+") as f:
-      json.dump(trd, f, indent=2, separators=(",",": "))
-    print("Saved!")
+    if isLocal:
+      with open(strd, "w+") as f:
+        json.dump(trd, f, indent=2, separators=(",",": "))
+      print("Has been saved locally!")

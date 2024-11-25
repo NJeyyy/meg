@@ -283,4 +283,43 @@ function HTMLElm_swap(nodeA, nodeB){
 	// Move `nodeB` to before the sibling of `nodeA`
 	parentA.insertBefore(nodeB, siblingA);
 }
+
+// Source: https://stackoverflow.com/a/12452845
+// Parse data from an .ini file
+function parseINIString(data){
+	var regex = {
+  	section: /^\s*\[\s*([^\]]*)\s*\]\s*$/,
+    param: /^\s*([^=]+?)\s*=\s*(.*?)\s*$/,
+    comment: /^\s*;.*$/
+  };
+  var value = {};
+  var lines = data.split(/[\r\n]+/);
+  var section = null;
+  lines.forEach(function(line){
+		if(regex.comment.test(line)){
+			return;
+		}else if(regex.param.test(line)){
+			var match = line.match(regex.param);
+			if(section){
+				value[section][match[1]] = match[2];
+			}else{
+				value[match[1]] = match[2];
+			}
+		}else if(regex.section.test(line)){
+			var match = line.match(regex.section);
+			value[match[1]] = {};
+			section = match[1];
+		}else if(line.length == 0 && section){
+			section = null;
+		};
+	});
+	return value;
+}
+
+//Source : https://coreui.io/blog/how-to-round-a-number-to-two-decimal-places-in-javascript/#3-dynamic-precision-with-mathround
+// round a decimal number
+function roundTo(num, precision) {
+  const factor = Math.pow(10, precision)
+  return Math.round(num * factor) / factor
+}
 //=============================================================================      =====================================================================================

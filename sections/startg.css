@@ -59,11 +59,20 @@
 #gpausebtn {font-size:3rem; color:var(--cp4); cursor:pointer;}
 #gbackbtn {background-color:var(--cp4); border-radius:18px; padding:.2rem .3rem; cursor:pointer;}
 #gbackbtn span{color:white; font-size:2.5rem; font-weight:600;}
+#time_rec {
+  font-family:"Iceberg", sans-serif;
+  font-size:2em;
+  background:#ffe5bd;
+  padding: 5px 10px;
+  border-radius: 7px;
+  box-shadow: 0 0 10px 0 #898989c2;
+}
 
 #eval_ply{
   font-family: "Lexend", sans-serif; align-items:center;
   display:grid; align-content:center;
   width:max-content; margin:25vh auto; row-gap:.2em;
+  margin-bottom:1.5em;
   grid-template-areas:"a b"
   "a b"
   "a b";
@@ -73,3 +82,11 @@
 #eval_ply label[evalt="score"]+span, #eval_ply label[evalt="score"] {font-size:2em;}
 #eval_ply label[evalt="score"]+span {font-family:"Mr Dafoe", cursive; font-weight:bold; /*color:rgb(0, 216, 0);*/}
 #eval_ply label[evalt="timer"]+span {font-family:"Offside", sans-serif;}
+#savscore {
+  margin:auto; width:max-content;
+  background: #67fc3a;
+  padding:1em; border-radius:10px;
+}
+#savscore:active {
+  box-shadow:inset 0 0 0 3px #56c734;
+}

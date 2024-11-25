@@ -1,6 +1,7 @@
 <div id="gtoolbar">
   <div id="gbackbtn"><span class="material-symbols-outlined">keyboard_return</span></div>
-  <div id="gpausebtn"><i class="fa-solid fa-circle-pause"></i></div>
+  <div id="time_rec" hidden>00:00:00.00</div>
+  <div id="gpausebtn" hidden><i class="fa-solid fa-circle-pause"></i></div>
 </div>
 <div id="plygnd">
   <div id="p-output">
@@ -21,32 +22,25 @@
   <label evalt="score">Score </label> <span></span>
   <label evalt="total_failed">Total Failed attempt(s) </label> <span></span>
   <label evalt="total_solved">Total Solved problem(s) </label> <span></span>
-  <label evalt="timer">You did it in </label> <span></span>
+  <label evalt="timer" hidden>You did it in </label> <span></span>
 </div>
+<div id="savscore">Save score</div>
 <script>
+  // ~~~~~  prepare playgrounds
+  var enable_timer;
+  fetch(location.href + "meg_stg.ini")
+    .then(re => re.text())
+    .then(data => {
+      enable_timer = parseINIString(data).DEFAULT.enable_timer == "True" ? true : false;
+    });
   ISE("#gbackbtn").addEventListener("click", () => {
     setpages("home");
   });
-  ISE("#gpausebtn").addEventListener("click", (e) => {
-    elt = e.target;
-    if (elt.classList.contains("fa-circle-pause")) {
-      elt.classList.remove("fa-circle-pause");
-      elt.classList.add("fa-circle-play");
-    } else {
-      elt.classList.remove("fa-circle-play");
-      elt.classList.add("fa-circle-pause");
-    }
-  });
-
   SE(".calcin").forEach(elm => {
     elm.addEventListener("click", (e) => {
       let vl = e.target.innerHTML;
       ISE("#p-output input").value += vl;
     });
-  });
-  ISE("#pin-del").addEventListener("click", () => {
-    let elt = ISE("#p-output input"); //target element
-    elt.value = elt.value.slice(0, -1);
   });
   ISE("#posneg").addEventListener("click", () => {
     let val = ISE("#p-output input").value;
@@ -56,24 +50,114 @@
       ISE("#p-output input").value = '-' + val;
     }
   });
-
-  fetch(location.href+"genpy")
-    .then(e => e.json())
-    .then(e => {
-      console.log(e);
-    })
-    .catch(e => console.error("The error is: ", e))
-  $.ajax({
-    type: 'POST',
-    url: location.href+"genps",
-    data: JSON.stringify({
-      "no": 1,
-      "name": "BRISIK",
-      "address": "ydh",
-    }),
-    contentType: "application/json",
-    success: (re)=>{
-      console.log(re.result);
-    }, error: (e)=>{console.error("bitchess: ",e);}
+  ISE("#pin-del").addEventListener("click", () => {
+    let elt = ISE("#p-output input"); //target element
+    elt.value = elt.value.slice(0, -1);
   });
+  document.getElementById("gpausebtn").addEventListener("contextmenu", endevalgame);
+  ISE("#savscore").addEventListener("click", () => {
+    $.ajax({
+      method: 'POST',
+      url: location.href + "genps",
+      data: JSON.stringify({
+        "isplay": false,
+        "time_record": tm,
+        "total_solved": tq,
+        "score": Math.round(((tq - tf) / tq) * Math.pow(10, 1)) / Math.pow(10, 1)
+      }),
+      cache: false,
+      contentType: "application/json",
+      success: (re) => {
+        console.log(re.result);
+      }, error: (e) => { console.error("error is: ", e);}
+    });
+  });
+
+  //~~~  prepare often-used functions and variables
+  var tq, tf, qres, nitr, tm; // total solved, total failed, correct answer, index of a question
+  // tm is to contain the last stopwatch value, in ms
+  tq = tf = nitr = 0;
+  function generateprob() {
+    ISE("#p-output input").value = "";
+    ISE("#p-output input").removeAttribute("style");
+    fetch(location.href + "genpy")
+      .then(e => e.json())
+      .then(e => {
+        nitr++;
+        ISE("#p-output p").innerHTML = `${nitr})&ensp;${e.n1} ${e.op} ${e.n2} = ?`;
+        qres = e.res;
+      })
+      .catch(e => console.error("The error is: ", e));
+  }
+  function endevalgame() {
+    document.getElementById("plygnd").setAttribute("hidden", "");
+    ISE("#eval_ply").removeAttribute("hidden");
+    ISE("#eval_ply label[evalt='score']+span").innerHTML = Math.round(((tq - tf) / tq) * Math.pow(10, 1)) / Math.pow(10, 1);
+    ISE("#eval_ply label[evalt='total_failed']+span").innerHTML = tf;
+    ISE("#eval_ply label[evalt='total_solved']+span").innerHTML = tq;
+    if (enable_timer) {
+      ISE("label[evalt='timer']").removeAttribute("hidden");
+      ISE("label[evalt='timer']+span").innerHTML = tm;
+    }
+  }
+
+
+  // ~~~~~~~~ action
+  let strt = false;
+  let elm = document.createElement("div");
+  elm.setAttribute("style", `width:80vw;height:80vh;background:rgb(0 0 0 / 50%);position:fixed;top:10%;left:10%;border-radius:10px;display:grid;justify-content:center;align-items:center;user-select:none;`);
+  elm.innerHTML = `<i style="font-size:10vw; color:#FCB860; filter:drop-shadow(2px 3px 6px rgb(10 10 10 / 60%)); cursor:pointer;" class="fa-solid fa-play"></i>`;
+  document.body.appendChild(elm);
+  elm.querySelector("i").addEventListener("click", () => { elm.remove(); strt = true; });
+  await waitFor(_ => strt)
+  generateprob();
+  if (enable_timer) {
+    document.getElementById("gpausebtn").removeAttribute("hidden");
+    let a = ISE("div#time_rec");
+    a.removeAttribute("hidden");
+    let b = function () {
+      t++;
+      var hr = t >= 3600000 ? Math.floor(t / 3600000) : 0;
+      var mnt = t >= 60000 ? Math.floor((t % 3600000) / 60000) : 0;
+      var secs = Math.round((Math.floor((t % 3600000) % 60000)) * Math.pow(10, 2) / 100) / Math.pow(10, 2);
+      tm = [hr, mnt, secs].toLocaleString("en-US", { minimumIntegerDigits: 2 }).replaceAll(",", ":");
+      a.innerHTML = tm;
+    };
+    var binter = setInterval(b, 10);
+    var stpw = true;
+    document.getElementById("gpausebtn").addEventListener("click", (e) => {
+      if (!stpw) {
+        clearInterval(binter);
+        binter = setInterval(b, 10);
+        stpw = true;
+        e.target.classList.remove("fa-circle-pause");
+        e.target.classList.add("fa-circle-play");
+      } else {
+        clearInterval(binter);
+        stpw = false;
+        e.target.classList.remove("fa-circle-play");
+        e.target.classList.add("fa-circle-pause");
+      }
+    });
+  }
+  ISE("#pin-enter").addEventListener("click", () => {
+    if (ISE("p-output input").value.length != 0) {
+      const usrans = parseFloat(ISE("p-output input").value);
+      if (!isNaN(usrans)) {
+        if (usrans == qres) {
+          generateprob();
+          tq++;
+        } else {
+          ISE("p-output input").setAttribute("style", `border:solid 2px red; box-shadow:0 0 10px 0 red;`);
+          tf++;
+        }
+        ISE("#p-output input").value = "";
+      } else {
+        alert("Please only use an appropriate answer.")
+      }
+    } else {
+      endevalgame();
+    }
+  });
+
 </script>
