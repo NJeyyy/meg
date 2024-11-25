@@ -43,6 +43,7 @@
   "a a a"
   "a a a";
   grid-template-columns: 1fr 1fr 1fr;
+  user-select:none;
 }
 #plygnd button {
   cursor:pointer; width:100%;
@@ -51,21 +52,16 @@
 }
 #plygnd button:active {background:var(--cp1);}
 
-#gtoolbar {
-  width:100%; display:grid; user-select:none;
-  grid-auto-flow:column; justify-content:space-between;
-  align-items:center; padding:0 .3em; box-sizing:border-box;
-}
+/* toolbar addons */
 #gpausebtn {font-size:3rem; color:var(--cp4); cursor:pointer;}
-#gbackbtn {background-color:var(--cp4); border-radius:18px; padding:.2rem .3rem; cursor:pointer;}
-#gbackbtn span{color:white; font-size:2.5rem; font-weight:600;}
 #time_rec {
   font-family:"Iceberg", sans-serif;
   font-size:2em;
   background:#ffe5bd;
-  padding: 5px 10px;
+  padding: 5px 10px; width:max-content;
   border-radius: 7px;
   box-shadow: 0 0 10px 0 #898989c2;
+  box-sizing: border-box;
 }
 
 #eval_ply{
@@ -82,11 +78,23 @@
 #eval_ply label[evalt="score"]+span, #eval_ply label[evalt="score"] {font-size:2em;}
 #eval_ply label[evalt="score"]+span {font-family:"Mr Dafoe", cursive; font-weight:bold; /*color:rgb(0, 216, 0);*/}
 #eval_ply label[evalt="timer"]+span {font-family:"Offside", sans-serif;}
-#savscore {
+div:has(>#tryg, >#savscore){
+  user-select:none;
+}
+#savscore, #tryg {
   margin:auto; width:max-content;
-  background: #67fc3a;
   padding:1em; border-radius:10px;
+  cursor: pointer;
+}
+#savscore {
+  background: #67fc3a;
 }
 #savscore:active {
   box-shadow:inset 0 0 0 3px #56c734;
+}
+#tryg{
+  background: #ff7878;
+}
+#tryg:active{
+  box-shadow:inset 0 0 0 3px #d53f3f;
 }

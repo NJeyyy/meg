@@ -8,9 +8,9 @@
     <div class="nav-items" spage="gdesc">About</div>
   </div>
   <!--<div id="test">gada yah.</div>-->
-  <div id="pagecred">Credits</div>
+  <div id="pagecred" spage="credits">Credits</div>
   <script>
-    SE(".nav-items").forEach(elm => {
+    SE(".nav-items, #pagecred").forEach(elm => {
       elm.addEventListener("click", (e) => {
         setpages(e.target.getAttribute("spage"));
       });

@@ -16,3 +16,12 @@ input[type=number] { /* Firefox */
   -moz-appearance: none;
   appearance: textfield;
 }
+
+/* most-often used elements */
+#gtoolbar {
+  width:100%; display:grid; user-select:none;
+  grid-auto-flow:column; justify-content:space-between;
+  align-items:center; padding:0 .3em; box-sizing:border-box;
+}
+#gbackbtn {background-color:var(--cp4); border-radius:18px; padding:.2rem .3rem; cursor:pointer;}
+#gbackbtn span{color:white; font-size:2.5rem; font-weight:600;}
