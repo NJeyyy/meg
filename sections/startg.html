@@ -180,6 +180,7 @@
       if (!isNaN(usrans)) {
         if (usrans == qres) {
           if (ISE("#ToggleSketch").hasAttribute("lsr")) { lsr++; }
+          ISE("#ToggleSketch").removeAttribute("lsr");
           generateprob();
           tq++;
         } else {
