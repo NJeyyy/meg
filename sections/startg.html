@@ -83,6 +83,7 @@
   var tq, tf, qres, nitr, tm, binter, lsr; // total solved, total failed, correct answer, index of a question,
   // binter for the stopwatch interval, lsr total reduction from using sketch
   // tm is to contain the last stopwatch value, in ms
+  var stpw, t;
   function generateprob() {
     ISE("#p-output input").value = "";
     ISE("#p-output input").removeAttribute("style");
@@ -114,12 +115,21 @@
       ISE("label[evalt='timer']+span").innerHTML = tm;
     }
   }
+  const b = function () {
+    t++;
+    var hr = String(t >= 36000 ? Math.floor(t / 36000) : 0);
+    var mnt = String(t >= 600 ? Math.floor((t % 36000) / 600) : 0);
+    var secs = Math.round((Math.floor((t % 36000) % 600)) * Math.pow(10, 2) / 10) / Math.pow(10, 2);
+    tm = `${hr.padStart(2, 0)}:${mnt.padStart(2, 0)}:${secs.toFixed(1).padStart(4, 0)}`
+    ISE("div#time_rec").innerText = tm;
+    ISE("div#time_rec").setAttribute("title", t);
+  };
 
 
   // ~~~~~~~~ action
   async function orinit() {
     // reset the value if reinitiate
-    tq = tf = nitr = lsr = 0;
+    tq = tf = nitr = lsr = t = 0;
     qres = {}; tm = "";
     ISE("#gpausebtn").classList.remove("fa-circle-pause"); // ↓↓
     ISE("#gpausebtn").classList.add("fa-circle-play"); // just to make sure the button interface gonna be correct
@@ -134,7 +144,7 @@
     ].forEach((eld) => { ISE(eld).innerHTML = ""; });
 
     // actual init
-    let strt = false;
+    let strt = false; stpw = true;
     let elm = document.createElement("div");
     elm.id = "notstarted"
     elm.setAttribute("style", `width:80vw;height:80vh;background:rgb(0 0 0 / 50%);position:fixed;top:10%;left:10%;border-radius:10px;display:grid;justify-content:center;align-items:center;user-select:none;`);
@@ -145,21 +155,9 @@
     generateprob();
     ISE("#ToggleSketch").removeAttribute('hidden', "");
     if (enable_timer) {
-      let a = ISE("div#time_rec");
-      [a, document.getElementById("gpausebtn")].forEach((elm) => { elm.removeAttribute("hidden"); });
-      var t = 0;
-      let b = function () {
-        t++;
-        var hr = String(t >= 36000 ? Math.floor(t / 36000) : 0);
-        var mnt = String(t >= 600 ? Math.floor((t % 36000) / 600) : 0);
-        var secs = Math.round((Math.floor((t % 36000) % 600)) * Math.pow(10, 2) / 10) / Math.pow(10, 2);
-        tm = `${hr.padStart(2, 0)}:${mnt.padStart(2, 0)}:${secs.toFixed(1).padStart(4, 0)}`
-        a.innerText = tm;
-        a.setAttribute("title", t);
-      };
+      [ISE("div#time_rec"), document.getElementById("gpausebtn")].forEach((elm) => { elm.removeAttribute("hidden"); });
       clearInterval(binter);
       binter = setInterval(b, 100);
-      var stpw = true;
     }
   }
   document.getElementById("gpausebtn").addEventListener("click", (e) => {
@@ -260,7 +258,7 @@
         "isplay": false,
         "time_record": tm,
         "total_solved": tq,
-        "score": (Math.round((((tq - tf) / tq) * 100) * Math.pow(10, 1)) / Math.pow(10, 1)) - (lsr*0.5)
+        "score": (Math.round((((tq - tf) / tq) * 100) * Math.pow(10, 1)) / Math.pow(10, 1)) - (lsr * 0.5)
       }),
       cache: false,
       contentType: "application/json",
