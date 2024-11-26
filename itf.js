@@ -20,5 +20,8 @@ function setpages(pagenames) {
 }
 
 (async function () {
+  if(!navigator.onLine){console.error("can't start without internet.");
+    alert("Please connect to the internet!!");
+  }
   setpages(itf_s[0]);
 })();

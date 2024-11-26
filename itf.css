@@ -17,11 +17,18 @@ input[type=number] { /* Firefox */
   appearance: textfield;
 }
 
+@media (min-width: 600px) { /* desktop view */
+  #gbackbtn span {font-size:2.5rem;}
+}
+@media (max-width: 600px) { /* mobile view */
+  #gbackbtn span {font-size:2rem;}
+}
+
 /* most-often used elements */
 #gtoolbar {
   width:100%; display:grid; user-select:none;
   grid-auto-flow:column; justify-content:space-between;
   align-items:center; padding:0 .3em; box-sizing:border-box;
 }
-#gbackbtn {background-color:var(--cp4); border-radius:18px; padding:.2rem .3rem; cursor:pointer;}
-#gbackbtn span{color:white; font-size:2.5rem; font-weight:600;}
+#gbackbtn {background-color:var(--cp4); border-radius:18px; padding:.3rem; padding-bottom:.1em; cursor:pointer;}
+#gbackbtn span{color:white; font-weight:600;}

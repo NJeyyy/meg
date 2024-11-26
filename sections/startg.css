@@ -3,6 +3,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Offside&display=swap');
 
+* {
+    -webkit-tap-highlight-color: transparent;
+}
 
 *[hidden]{display:none !important;}
 @media (min-width:600px) { /*desktop view*/
@@ -10,9 +13,12 @@
   #p-output p {font-size: 5vw;}
   #eval_ply {font-size:2.5vw; box-shadow:14px 13px 0px 6px #22222282;
     column-gap:2em;}
+  #gpausebtn{font-size:3rem;}
+  #time_rec{font-size:2em;}
+  #ToggleSketch{font-size:30px; right:.2em; bottom:.2em;}
 }
 @media (max-width:600px) { /*mobile view*/
-  #plygnd {gap:3em; font-size:2rem;}
+  #plygnd {gap:1.2em; font-size:2rem;}
   #p-output{width:80%; margin: auto;}
   #p-output input {width: 90%;}
   #p-output p {font-size:2rem;}
@@ -21,13 +27,17 @@
   #eval_ply{box-shadow:12px 11px 0px 1px #22222282;
   column-gap:1em;}
   #eval_ply label[evalt="timer"]+span{grid-column:1;}
+  #gpausebtn{font-size:2.5rem;}
+  #time_rec{font-size:1.7em;}
+  #ToggleSketch{font-size:25px; right:.7em; bottom:1.3em;}
 }
 
+/* playground elements */
 #plygnd {
   user-select:none;
   display:grid;
   justify-content:center; align-content:center;
-  height: 95vh;
+  height: 90vh;
 }
 #plygnd input, #plygnd button {font-size:inherit; color:#000; font-family:"Iceberg", sans-serif;}
 #p-output {text-align:center; padding:.5em; background:#f1de86; border-radius:5px;}
@@ -53,10 +63,9 @@
 #plygnd button:active {background:var(--cp1);}
 
 /* toolbar addons */
-#gpausebtn {font-size:3rem; color:var(--cp4); cursor:pointer;}
+#gpausebtn {color:var(--cp4); cursor:pointer;}
 #time_rec {
   font-family:"Iceberg", sans-serif;
-  font-size:2em;
   background:#ffe5bd;
   padding: 5px 10px; width:max-content;
   border-radius: 7px;
@@ -64,6 +73,7 @@
   box-sizing: border-box;
 }
 
+/* evaluation panel */
 #eval_ply{
   font-family: "Lexend", sans-serif; align-items:center;
   display:grid; align-content:center;
@@ -98,3 +108,13 @@ div:has(>#tryg, >#savscore){
 #tryg:active{
   box-shadow:inset 0 0 0 3px #d53f3f;
 }
+
+/* addons */
+#ToggleSketch {
+  position:absolute;
+  padding:.3em; z-index:210507;
+  cursor:grab;
+}
+#ToggleSketch:active{cursor:grabbing;}
+#ToggleSketch:not([used]){border-radius:10px; background:var(--cp2);}
+#ToggleSketch[used]{border-radius:50px; background:#ffa857;}

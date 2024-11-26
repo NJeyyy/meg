@@ -64,13 +64,12 @@ def getdata():
       if a:
         b.append(re.sub("[\\(\\)]", "", a.group()))
     cdt+=" ("+str(int(max(b))+1)+")"
-    """
+  del gdata["isplay"]
   trd.update({cdt : gdata})
   if isLocal:
     with open(pfile, 'w') as f:
       json.dump(trd, f, indent=2, separators=(",", ": "))
-  """
-  return {"status":"success", "response": gdata, "isLocal":isLocal}
+  return {"status":"success", "response": gdata, "isLocal":isLocal, "processed_data":trd}
 
 
 itfp.install(EnableCors())
