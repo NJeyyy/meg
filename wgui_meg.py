@@ -4,9 +4,11 @@ from meg_f import mathprob #from the terminal-version
 import json
 import configparser
 import os.path as osp
+import os
 from datetime import datetime as dt
 import re
 
+os.chdir(osp.dirname(__file__)) #set the working directory, so the script can be run anywhere
 setin=configparser.ConfigParser()
 setin.read("meg_stg.ini")
 isLocal = setin["DEFAULT"]["isLocal"]

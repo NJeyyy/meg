@@ -1,9 +1,12 @@
 import random
 import configparser
 import os.path
+import os
 
+os.chdir(osp.dirname(__file__)) #to avoid incoming issue regarding working dir
 setin=configparser.ConfigParser()
-print(setin.read(os.path.join(os.path.dirname(__file__), "meg_stg.ini")))
+print(setin.read("meg_stg.ini"))
+
 maxnum=int(setin["DEFAULT"]["maxnum"])
 
 opran = {
