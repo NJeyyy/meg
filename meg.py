@@ -22,7 +22,6 @@ import re
 from termcolor import cprint, colored
 import time
 from datetime import datetime as dt
-import os.path as osp
 import os
 import json
 from tabulate import tabulate
@@ -30,7 +29,7 @@ import signal as sg
 import sys
 import meg_f
 
-os.chdir(osp.dirname(__file__)) #to avoid if it has the same issues regarding the working dir
+os.chdir(os.path.abspath(os.path.dirname(__file__))) #to avoid if it has the same issues regarding the working dir
 setin=configparser.ConfigParser()
 setin.read("meg_stg.ini")
 enable_timer=setin["DEFAULT"]["enable_timer"]
@@ -39,7 +38,7 @@ pl=True #to start the looping of the game until it stopped
 tq=0 #number of question solved
 tf=0 #number of failed attempts
 if isLocal:
-  strd=osp.join(osp.dirname(__file__), "meg_score.json") #path to the saved score
+  strd="meg_score.json" #path to the saved score
   try:
     with open(strd) as f:
       trd = json.load(f)

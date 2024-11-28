@@ -3,12 +3,11 @@ import bottle
 from meg_f import mathprob #from the terminal-version
 import json
 import configparser
-import os.path as osp
 import os
 from datetime import datetime as dt
 import re
 
-os.chdir(osp.dirname(__file__)) #set the working directory, so the script can be run anywhere
+os.chdir(os.path.abspath(os.path.dirname(__file__))) #set the working directory, so the script can be run anywhere
 setin=configparser.ConfigParser()
 setin.read("meg_stg.ini")
 isLocal = setin["DEFAULT"]["isLocal"]
@@ -32,7 +31,7 @@ class EnableCors(object):
 @itfp.route('/<filepath:path>')
 def serve_static(filepath):
     resp = static_file(filepath, root='./')
-    #resp.set_header("Cache-Control", "public, max-age=604800")
+    resp.set_header("Cache-Control", "public, max-age=604800")
     return resp
 @itfp.route("/")
 def loadp():
@@ -48,7 +47,7 @@ def generate_ply():
 def getdata():
   gdata=request.json
   response.content_type = "application/json"
-  pfile=osp.join(osp.dirname(__file__), "meg_score.json")
+  pfile="meg_score.json"
   if isLocal:
     try:
       with open(pfile) as f:
@@ -58,7 +57,6 @@ def getdata():
   cdt=dt.now().strftime("%d/%m/%y")
   if cdt in trd and not (cdt+" (2)" in trd): # if this is the second attempt on the same day
     cdt+=" (2)"
-    print("2")
   elif cdt+" (2)" in trd: #if more than 2 attempts
     b=[]
     for i in trd.items():

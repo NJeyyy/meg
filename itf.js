@@ -1,4 +1,6 @@
 var itf_s = ["home", "startg", "credits"]; //, "setg", "gdesc", "lboard"
+
+$.ajaxSetup({ cache: false }) // prevent page to save cache, so the code would not show an error. i dont think this is a good idea, but for awhile.. heheh
 function setpages(pagenames) {
   if (itf_s.includes(pagenames)) {
     var itf_sc = document.querySelector(pagenames + ".css");
