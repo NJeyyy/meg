@@ -1,9 +1,8 @@
 import random
 import configparser
-import os.path
 import os
 
-os.chdir(osp.dirname(__file__)) #to avoid incoming issue regarding working dir
+os.chdir(os.path.dirname(__file__)) #to avoid incoming issue regarding working dir
 setin=configparser.ConfigParser()
 print(setin.read("meg_stg.ini"))
 
