@@ -7,6 +7,7 @@ fetch(location.href + "meg_stg.ini")
     isShaking = parseINIString(data).DEFAULT.isShaking == "True" ? true : false;
   });
 ISE("#gbackbtn").addEventListener("click", () => {
+  clearInterval(binter); //make sure to clear the interval since it's not gonna be resetted when the page changed.
   setpages("home");
 });
 SE(".calcin").forEach(elm => {
