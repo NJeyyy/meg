@@ -2,11 +2,11 @@ var itf_s = ["home", "startg", "credits"]; //, "setg", "gdesc", "lboard"
 function setpages(pagenames) {
   if (itf_s.includes(pagenames)) {
     var itf_sc = document.querySelector(pagenames + ".css");
-    $.ajax({
-      type: "GET", url: "sections/" + pagenames + ".html", success: (res) => {
-        $("body").html(res);
-      }
-    });
+    fetch(`sections/${pagenames}.html`).then(resp=>{
+      console.log("loading page, response: ",resp);
+    }).then(res=>{
+      document.body.innerHTML=res;
+    }).catch(err=>{console.error("error when loading page: ", err);});
     if (!itf_sc) {
       var itf_sc = document.createElement("link");
       itf_sc.setAttribute("rel", "stylesheet");
