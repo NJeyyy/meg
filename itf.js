@@ -1,4 +1,5 @@
 var itf_s = ["home", "startg", "credits"]; //, "setg", "gdesc", "lboard"
+
 function setpages(pagenames) {
   if (itf_s.includes(pagenames)) {
     var itf_sc = document.querySelector(pagenames + ".css");
