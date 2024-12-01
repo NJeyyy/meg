@@ -232,6 +232,8 @@ ISE("#savscore").addEventListener("click", () => {
     contentType: "application/json",
     success: (re) => {
       console.log(re);
+      //alert("saved succesfully!");
+      ISE("#savescore").setAttribute("hidden", "");
     }, error: (e) => { console.error("error is: ", e); }
   });
 });
