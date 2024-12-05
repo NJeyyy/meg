@@ -1,33 +1,50 @@
-var itf_s = ["home", "startg", "credits"]; //, "setg", "gdesc", "lboard"
+// importing
+import ReactDOM from "react-dom/client";
+import React, { useState, useEffect } from "react";
+import "./itf.css";
+import { ISE, waitFor } from "./ToolScript_Global.js"
+import Hom from "./sections/home.jsx"
+import Startg from "./sections/startg.jsx"
 
-function setpages(pagenames) {
-  const fetchloadctn = function(url, type){
-    fetch(url).then(resp=>{return resp.text();}).then(res=>{
-      if(type=="html"){
-        document.body.innerHTML = res;
-      } else if (type=="js"){eval(res);}
-    }).catch(err => {console.error(`error when fetching on ${type},`, err);});
+
+const itf_s = ["home", "startg", "credits"]; //, "setg", "gdesc", "lboard"
+const rootel = ReactDOM.createRoot(ISE("#base"));
+/*export const initpages = () => {
+  const [cpage, setcpage] = useState("home");
+  const setpages = (npg) => { setcpage(npg); };
+  return { cpage, setpages };
+}*/
+export const setpg = (npg) => {
+  let Dompages;
+  switch (npg) {
+    case "home": Dompages = <Hom />; break;
+    case "startg": Dompages = <Startg />; break;
+    default:
+      alert("this page isn't exist!");
+      console.error("this page is not exist yet! or maybe just not.");
+      Dompages = <Hom />;
+      break;
   }
-  if (itf_s.includes(pagenames)) {
-    var itf_sc = ISE("link#pfiles");
-    if (!itf_sc) {
-      var itf_sc = document.createElement("link");
-      itf_sc.setAttribute("rel", "stylesheet");
-      itf_sc.setAttribute("id", "pfiles")
-      document.head.appendChild(itf_sc);
-    }
-    itf_sc.setAttribute("href", "sections/" + pagenames + ".css");
-    fetchloadctn(`sections/${pagenames}.html`, "html");
-    fetchloadctn(`sections/${pagenames}.js`, "js");
-  } else {
-    alert("That page is not exist, yet.")
-    console.error("WTF ARE YOU TRYING TO DO?? There's nothing like that, idiot.")}
-  return;
-}
+  rootel.render(Dompages);
+};
 
 (async function () {
-  if(!navigator.onLine){console.error("can't start without internet.");
+  await waitFor(_ => document.readyState == "complete");
+  if (!navigator.onLine) {
+    console.error("can't start without the internet.");
     alert("Please connect to the internet!!");
+    rootel.render(<div>
+      <h1>Please turn on your internet to access the website</h1>
+      <p>this website uses some dependencies that require an internet connection. so, please.</p>
+    </div>);
+  } else {
+    let maip = "home";
+    /*const Manrea = () => {
+      //const { cpage, setpages } = initpages();
+      //useEffect(() => {}, [a]);
+      return setpg(maip);
+    };*/
+    setpg(maip)
+    ISE("#base").setAttribute("cpage", maip);
   }
-  setpages(itf_s[0]);
 })();

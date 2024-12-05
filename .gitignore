@@ -1,2 +1,12 @@
+# ignore this
 meg_score.json
 __pycache__/*
+
+# ignore build dir (webpack's output)
+build/
+dist/
+# ignore modules and logs, unnecessary things
+node_modules/
+npm-debug.log
+yarn-error.log
+.DS_Store

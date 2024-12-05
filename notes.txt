@@ -1,3 +1,7 @@
 - exit button, terminate the server too
 - alert when user data is saved. disable button when successfully saved.
 - finish other things
+
+
+revamp starts on 05/12/2024|07:19AM (sbnernya dr kmrn ama dr mulai megang ni laptop, tp fixnya itu)
+$09:02AM, ^11:04AM$12:18PM, ^12:57PM$14:15PM, ^4:00PM$
