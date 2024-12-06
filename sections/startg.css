@@ -16,6 +16,8 @@
   #gpausebtn{font-size:3rem;}
   #time_rec{font-size:2em;}
   #ToggleSketch{font-size:30px; right:.2em; bottom:.2em;}
+  #plygnd button { padding: .7vw 0; font-size:1.96rem;}
+  #p-input {gap: .2em;}
 }
 @media (max-width:600px) { /*mobile view*/
   #plygnd {gap:1.2em; font-size:2rem;}
@@ -23,7 +25,7 @@
   #p-output input {width: 90%;}
   #p-output p {font-size:2rem;}
   .calcin{padding: .3em 0;}
-  #p-input{margin: 0 .5em;}
+  #p-input{margin: 0 .5em; gap:.3em;}
   #eval_ply{box-shadow:12px 11px 0px 1px #22222282;
   column-gap:1em;}
   #eval_ply label[evalt="timer"]+span{grid-column:1;}
@@ -39,16 +41,17 @@
   justify-content:center; align-content:center;
   height: 90vh;
 }
-#plygnd input, #plygnd button {font-size:inherit; color:#000; font-family:"Iceberg", sans-serif;}
-#p-output {text-align:center; padding:.5em; background:#f1de86; border-radius:5px;}
+#plygnd input, #plygnd button {font-family:"Iceberg", sans-serif;}
+#p-output {text-align:center; padding:.5em; background:var(--cp6); border-radius:5px;}
 #p-output input{
-  background:#f1b686;
+  font-size:inherit; color:#000;
+  background:var(--cp3);
   border:none;outline:none; border-radius:5px;
-  padding:.2em;
+  padding:.2em; border: solid 1px #000;
 }
 #p-output p {margin:.5rem; margin-bottom:1rem; font-family:"Iceberg", sans-serif;}
 #p-input{
-  display:grid; gap: .2em;
+  display:grid;
   grid-template-areas: "a a a"
   "a a a"
   "a a a";
@@ -57,19 +60,24 @@
 }
 #plygnd button {
   cursor:pointer; width:100%;
-  background:var(--cp3);
-  border-radius:15px; border-color:#d3d3d373;
+  border-radius:7px; border:solid 0 rgb(0 0 0 / 28%);
+  border-right-width:3px; border-bottom-width:2px;
+  box-shadow: 2px 3px 3px 0 rgb(0 0 0 / 25%);
+  line-height:1;
 }
+#plygnd button:not(#pin-del, #posneg, #pin-enter){background:var(--cp7); color:#000;}
+#pin-del, #posneg, #pin-enter {background-color:var(--cp1); color:#fff;}
 #plygnd button:active {background:var(--cp1);}
 
 /* toolbar addons */
-#gpausebtn {color:var(--cp4); cursor:pointer;}
+#gpausebtn {color:var(--cp5); cursor:pointer;}
 #time_rec {
   font-family:"Iceberg", sans-serif;
-  background:#ffe5bd;
+  background:#fff;
   padding: 5px 10px; width:max-content;
   border-radius: 7px;
   box-shadow: 0 0 10px 0 #898989c2;
+  border: solid 1px #bababa;
   box-sizing: border-box;
 }
 
@@ -116,5 +124,5 @@ div:has(>#tryg, >#savscore){
   cursor:grab;
 }
 #ToggleSketch:active{cursor:grabbing;}
-#ToggleSketch:not([used]){border-radius:10px; background:var(--cp2);}
+#ToggleSketch:not([used]){border-radius:10px; background:var(--cp5); color:#fff;}
 #ToggleSketch[used]{border-radius:50px; background:#ffa857;}

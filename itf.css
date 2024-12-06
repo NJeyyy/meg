@@ -6,6 +6,7 @@
   --cp4: #8cff00;
   --cp5: #046dfd;
   --cp6: #fddaaa;
+  --cp7: #EEF3FD;
 }
 body{background-color:#fff;}
 input[type=number]::-webkit-outer-spin-button, /* Chrome, Safari, Edge, Opera */
@@ -31,5 +32,5 @@ input[type=number] { /* Firefox */
   grid-auto-flow:column; justify-content:space-between;
   align-items:center; padding:0 .3em; box-sizing:border-box;
 }
-#gbackbtn {background-color:var(--cp4); border-radius:18px; padding:.3rem; padding-bottom:.1em; cursor:pointer;}
+#gbackbtn {background-color:var(--cp5); border-radius:18px; padding:.3rem; padding-bottom:.1em; cursor:pointer;}
 #gbackbtn span{color:white; font-weight:600;}

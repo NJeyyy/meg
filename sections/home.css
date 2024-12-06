@@ -5,8 +5,8 @@
 @media (min-width: 600px) { /*desktop view*/
   h1 { font-size: 1100%; }
   h4 {font-size:250%; margin:0;}
-  .nav-items{font-size:1.2em;
-    padding: .67em 1em;}
+  .nav-items{font-size:1.3em;
+    padding: .6em 1em;}
   #navbtn{ margin-top:.5rem; }
   #title-decor {
     top:-44%; left:-39%;
@@ -19,7 +19,7 @@
   }
   h4 { font-size:1.9rem; margin:0; margin-bottom:2rem;}
   .nav-items{font-size:1.4em;
-    padding:.5em .65em;}
+    padding:.6em .7em;}
   #navbtn{margin-top: 1em; margin-bottom:3rem;}
   #hproperty { margin-bottom:1rem; }
   #title-decor {
@@ -49,10 +49,10 @@ h4 { font-family: 'NATS', sans-serif; }
 }
 .nav-items {
   background: var(--cp1); color:#fff;
-  padding:.67em 1em; width:100%; /* (.67em 1em) (.5em .65em) */
+  width:100%;
   border-radius:10px; cursor:pointer;
   font-family: "Aldrich", sans-serif;
 }
-.nav-items:not(:last-child){ margin-bottom:1em; }
+.nav-items:not(:last-child){ margin-bottom:.5em; }
 .nav-items:active { background: var(--cp2); }
 #title-decor {  z-index:-1; position:absolute;  }
