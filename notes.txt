@@ -1,3 +1,4 @@
 - exit button, terminate the server too
 - alert when user data is saved. disable button when successfully saved.
 - finish other things
+- experiment place, to use real-time calculator

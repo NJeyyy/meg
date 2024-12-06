@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Aldrich&display=swap');
 :root {
-  --cp1:#F6416C;
-  --cp2: #37c76e;
-  --cp3: #FFDE7D;
-  --cp4: #00B8A9;
-  --cp5: #F8F3D4;
+  --cp1: #ff8c00;
+  --cp2: #ffd700;
+  --cp3: #c9d1df;
+  --cp4: #8cff00;
+  --cp5: #046dfd;
+  --cp6: #fddaaa;
 }
-body{background-color:var(--cp5);}
+body{background-color:#fff;}
 input[type=number]::-webkit-outer-spin-button, /* Chrome, Safari, Edge, Opera */
 input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
