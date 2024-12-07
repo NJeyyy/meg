@@ -1,4 +1,4 @@
-var itf_s = ["home", "startg", "credits"]; //, "setg", "gdesc", "lboard"
+var itf_s = ["home", "startg", "credits"]; //, "setg", "gdesc", "lboard", "expr"
 
 function setpages(pagenames) {
   const fetchloadctn = function(url, type){

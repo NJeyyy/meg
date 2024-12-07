@@ -223,18 +223,18 @@ ISE("#savscore").addEventListener("click", () => {
     method: 'POST',
     url: location.href + "genps",
     data: JSON.stringify({
-      "isplay": false,
+      "mode": "save-score",
       "time_record": tm,
       "total_solved": tq,
       "score": (Math.round((((tq - tf) / tq) * 100) * Math.pow(10, 1)) / Math.pow(10, 1)) - (lsr * 0.5)
     }),
     cache: false,
     contentType: "application/json",
-    success: (re) => {
+    success: async function(re){
       console.log(re);
-      //alert("saved succesfully!");
-      ISE("#savescore").setAttribute("hidden", "");
+      await ISE("#savescore").setAttribute("hidden", "");
+      alert("saved succesfully!");
     }, error: (e) => { console.error("error is: ", e); }
   });
-});
+}, {once:true});
 orinit();

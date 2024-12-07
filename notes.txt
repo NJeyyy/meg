@@ -1,4 +1,7 @@
 - exit button, terminate the server too
+  *finished, but need to add new page so when the user click the button it will
+  bring the user to a black page saying "this game has been exited, feel free to close this tab!"
+  also testing the `exit` code if it works to stopped termux's terminal..?
 - alert when user data is saved. disable button when successfully saved.
 - finish other things
 - experiment place, to use real-time calculator
