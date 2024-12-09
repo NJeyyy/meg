@@ -232,7 +232,7 @@ ISE("#savscore").addEventListener("click", () => {
     contentType: "application/json",
     success: async function(re){
       console.log(re);
-      await ISE("#savescore").setAttribute("hidden", "");
+      await ISE("#savscore").setAttribute("hidden", "");
       alert("saved succesfully!");
     }, error: (e) => { console.error("error is: ", e); }
   });

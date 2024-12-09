@@ -4,15 +4,13 @@ SE(".nav-items:not([spage='ext']), #pagecred").forEach(elm => {
   });
 });
 
-ISE(".nav-items[spage='ext']").addEventListener("click", () => {
-  $.ajax({
-    method: 'POST',
-    url: location.href + "genps",
-    data: JSON.stringify({ "mode": "exit-game" }),
-    contentType: "application/json",
-    success: (re)=>{ console.log(re); 
-      window.top.close()
-    },
-    error: (e) => { console.error("error is: ", e); }
-  });
-}, {once:true});
+ISE(".nav-items[spage='ext']").addEventListener("click", async function() {
+  await fetch("sections/exitp.html").then(resp=>{return resp.text();})
+   .then(async function(res) {
+    document.body.innerHTML=res;
+    eval(SE("body script")[0].innerHTML);
+    await sleep(1500);
+    eval(SE("body script")[1].innerHTML);
+   })
+   .catch(err => {console.error(`error when fetching on for the exit page: ,`, err);});
+});

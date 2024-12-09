@@ -1,0 +1,33 @@
+<script>
+  let ext_sc = document.createElement("style");
+  ext_sc.innerHTML = `
+div, image {display:block; margin:auto;}
+div {font-family:Arial; text-align:center;}
+#hd {
+font-size:15vw; font-weight:bold;
+color:black; width:max-content;
+}
+#piclogo {height:auto; width:25rem;}
+#partingtext{
+  color:transparent; background:linear-gradient(90deg, var(--cp1), var(--cp2), var(--cp4)); background-clip:text;
+  font-weight:bold; font-size:3vw;
+  -webkit-text-stroke: black .3px
+}
+    `;
+  document.head.appendChild(ext_sc);
+</script>
+<div id="hd">Good Bye!</div>
+<div style="font-size:2vw;">This game has been terminated, feel free to close this tab!</div>
+<image id="piclogo" src="assets/MEG_icon.png"/>
+<div id="partingtext">I hope you visit us again :D</div>
+<script>
+  $.ajax({
+    method: 'POST',
+    url: location.href + "genps",
+    data: JSON.stringify({ "mode": "exit-game" }),
+    contentType: "application/json",
+    success: (re)=>{ console.log(re);
+    },
+    error: (e) => { console.error("error is: ", e); }
+  });
+</script>

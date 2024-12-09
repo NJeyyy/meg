@@ -65,6 +65,10 @@
   box-shadow: 2px 3px 3px 0 rgb(0 0 0 / 25%);
   line-height:1;
 }
+#plygnd button:active {
+  border: solid 1px rgb(0 0 0 / 50%);
+  box-shadow: inset 1px 1px 3px 2px rgb(0 0 0 / 25%);
+}
 #plygnd button:not(#pin-del, #posneg, #pin-enter){background:var(--cp7); color:#000;}
 #pin-del, #posneg, #pin-enter {background-color:var(--cp1); color:#fff;}
 #plygnd button:active {background:var(--cp1);}
