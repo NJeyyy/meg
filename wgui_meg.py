@@ -6,7 +6,8 @@ import configparser
 import os
 from datetime import datetime as dt
 import re
-import sys
+import psutil # to terminate termux/terminal and the running code
+import sys # to terminate script&server
 
 os.chdir(os.path.abspath(os.path.dirname(__file__))) #set the working directory, so the script can be run anywhere
 setin=configparser.ConfigParser()
@@ -49,8 +50,10 @@ def getdata():
   gdata=request.json
   if(gdata["mode"] == "exit-game"):
     print("Exiting.. 👋")
+    for i in psutil.pids():
+      if(psutil.Process(i).name() == "com.termux"):
+        psutil.Process(i).terminate() #only in termux<3
     sys.stderr.close()
-    exit
     return
   elif (gdata["mode"] == "save-score"):
     response.content_type = "application/json"
