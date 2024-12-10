@@ -1,9 +1,2 @@
 - finish other things
 - experiment place, to use real-time calculator (only placeholder for now)
-
-on-going:
-~ exit button, terminate the server too [already tested on mobile, need to re-test on laptop]
-  *finished, but need to add new page so when the user click the button it will
-  bring the user to a black page saying "this game has been exited, feel free to close this tab!"
-  [also testing the `exit` code if it works to stopped termux's terminal..?]
-  *2: both done. i add a code to terminate the termux, but if not found gonna take an alternative by stopping the script/server
