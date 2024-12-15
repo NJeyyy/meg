@@ -1,2 +1,4 @@
-- finish other things
+- finish other things (settings, experiments place)
 - experiment place, to use real-time calculator (only placeholder for now)
+- replace jquery (AJAX) to fetch instead so it will still function when goes offline
+- either fix or remove or replace the animation whenever the dom changes

@@ -8,7 +8,7 @@ fetch(location.href + "meg_stg.ini")
   });
 ISE("#gbackbtn").addEventListener("click", () => {
   clearInterval(binter); //make sure to clear the interval since it's not gonna be resetted when the page changed.
-  setpages("home");
+  setpages("home-js");
 });
 SE(".calcin").forEach(elm => {
   elm.addEventListener("click", (e) => {
@@ -232,9 +232,9 @@ ISE("#savscore").addEventListener("click", () => {
     contentType: "application/json",
     success: async function(re){
       console.log(re);
-      await ISE("#savscore").setAttribute("hidden", "");
+      ISE("#savscore").setAttribute("hidden", "");
       alert("saved succesfully!");
     }, error: (e) => { console.error("error is: ", e); }
   });
-}, {once:true});
+});
 orinit();

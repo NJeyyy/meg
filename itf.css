@@ -20,10 +20,10 @@ input[type=number] { /* Firefox */
 }
 
 @media (min-width: 600px) { /* desktop view */
-  #gbackbtn span {font-size:2.5rem;}
+  #gbackbtn img {width:2.5rem; height:auto;}
 }
 @media (max-width: 600px) { /* mobile view */
-  #gbackbtn span {font-size:2rem;}
+  #gbackbtn img {width:2rem; height:auto;}
 }
 
 /* most-often used elements */
@@ -31,6 +31,17 @@ input[type=number] { /* Firefox */
   width:100%; display:grid; user-select:none;
   grid-auto-flow:column; justify-content:space-between;
   align-items:center; padding:0 .3em; box-sizing:border-box;
+  position: absolute; top:10px; left:5px;
 }
-#gbackbtn {background-color:var(--cp5); border-radius:18px; padding:.3rem; padding-bottom:.1em; cursor:pointer;}
-#gbackbtn span{color:white; font-weight:600;}
+#gbackbtn {
+  background-color:var(--cp5); border-radius:18px;
+  padding:.3rem; padding-bottom:.1em; cursor:pointer;
+}
+
+/* animATION?? */
+@keyframes to-load {
+  0% {position:absolute; left:-200%;}
+  95% {position:absolute; left:0;}
+  97% {position:absolute; left:25%;}
+  100% {position:relative;}
+}

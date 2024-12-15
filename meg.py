@@ -65,7 +65,7 @@ else: #show leaderboard (if the data exist)
   hdr=["\033[38;5;214mRank\033[0m", colored("Time", "yellow"), colored("Time Record","light_red"), colored("TSolved", "light_green"), colored("Score", "light_magenta")]
   besc = sorted(besc,
     key=lambda x: (-x["score"], -x["total_solved"], dt.strptime(x["time_record"], "%H:%M:%S.%f")))
-  if(len(besc)<5):
+  if(len(besc)<5): #add an addition if data is less than 5, just for placeholder
     for i in range(5-len(besc)):
       besc.append({"time_record":".", "datetime":".", "total_solved":".", "score":"."})
   b_esc=[]

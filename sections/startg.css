@@ -34,6 +34,8 @@
   #ToggleSketch{font-size:25px; right:.7em; bottom:1.3em;}
 }
 
+#gtoolbar{position: relative !important; top:0; left:0;}
+
 /* playground elements */
 #plygnd {
   user-select:none;

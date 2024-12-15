@@ -81,7 +81,36 @@ def getdata():
         json.dump(trd, f, indent=2, separators=(",", ": "))
       print("changes has been saved!")
     return {"status":"success", "response": gdata, "isLocal":isLocal, "processed_data":trd}
-  else: return {"status":"ERROR", "response": "mode is unavailable", "giveback-response": gdata}
+  elif (gdata["mode"]=="get-score"):
+    try:
+      with open("meg_score.json", "r") as f:
+        f = json.load(f)
+        sendresp = f if not len(f)==0 else None
+    except FileNotFoundError: return {"status": "ERROR", "response":"The file meg_score.json does not exist."}
+    if not sendresp: return {"status": "ERROR", "response":"unable to load data from the file."}
+    cleanresp = []
+    for i in sendresp:
+      t=sendresp[i].copy()
+      t["datetime"]=i
+      cleanresp.append(t)
+    cleanresp = sorted(cleanresp,
+      key=lambda x: (-x["score"], -x["total_solved"], dt.strptime(x["time_record"], "%H:%M:%S.%f")))
+    sortedresp=[]
+    for i, v in enumerate(cleanresp):
+      if (re.search(r"\(\d+\)$", v["datetime"])):
+        splitdate=re.split(" ", v["datetime"])
+        keepdate = splitdate[0]
+        splitdate[0]=dt.strptime(splitdate[0], "%d/%m/%y").strftime("%d %B %Y")
+        datekey_day=dt.strptime(keepdate, "%d/%m/%y").strftime("%A")
+        datekey = " ".join(splitdate)
+      else:
+        datekey_day=datekey_day=dt.strptime(v["datetime"], "%d/%m/%y").strftime("%A")
+        datekey=dt.strptime(v["datetime"], "%d/%m/%y").strftime("%d %B %Y")
+      sortedresp.append({"date": datekey, 
+                        "time_record":v["time_record"], "total_solved":v["total_solved"],
+                        "score":v["score"], "date_day":datekey_day})
+    return {"status":"success", "raw-response":sendresp, "sorted-response":sortedresp}
+  else: return {"status":"ERROR", "response": "mode is unavailable", "giveback-response": gdata,}
 
 
 itfp.install(EnableCors())
