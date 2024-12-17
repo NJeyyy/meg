@@ -32,12 +32,22 @@ h1 {
 
 #board-container {
   margin-top: 2rem;
-  ;
-  padding: .5rem;
+  min-height:70vh; max-height:78vh;
+  padding: .5rem; overflow:hidden scroll;
   background: var(--cp7);
   border-radius: 5px;
   border: solid rgb(0 0 0 / 40%) 1px;
-  min-height: 70vh;
+}
+#board-container::-webkit-scrollbar{
+  width:initial;
+}
+#board-container::-webkit-scrollbar-track {
+  background: rgb(255 255 255 / 0%);
+  border-radius:5px;
+}
+#board-container:hover::-webkit-scrollbar-track { background:rgb(255 255 255 / 45%); }
+#board-container::-webkit-scrollbar-thumb {
+  background:var(--cp1); border-radius:5px;
 }
 
 table {

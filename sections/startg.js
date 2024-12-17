@@ -1,10 +1,13 @@
 // ~~~~~  prepare playgrounds
 var enable_timer, isShaking; //isShaking is only applied to mobile device
-fetch(location.href + "meg_stg.ini")
-  .then(re => re.text())
-  .then(data => {
+fetch(location.href + "meg_stg.ini") //get saved-settings
+  .then(re => re.text()).then(data => {
     enable_timer = parseINIString(data).DEFAULT.enable_timer == "True" ? true : false;
     isShaking = parseINIString(data).DEFAULT.isShaking == "True" ? true : false;
+  }).catch(e=>{
+    console.error("Error fetching saved-settings: ", e);
+    //set default settings instead
+    isShaking = enable_timer = false;
   });
 ISE("#gbackbtn").addEventListener("click", () => {
   clearInterval(binter); //make sure to clear the interval since it's not gonna be resetted when the page changed.
@@ -54,7 +57,11 @@ var stpw, t;
 function generateprob() {
   ISE("#p-output input").value = "";
   ISE("#p-output input").removeAttribute("style");
-  fetch(location.href + "genpy")
+  fetch(location.href + "main-server-handling", {
+    method: "POST",
+    body: JSON.stringify({ mode: "generate-problem" }),
+    headers: { "Content-Type":"application/json" },
+  })
     .then(e => e.json())
     .then(e => {
       nitr++;
@@ -219,22 +226,22 @@ ISE("#ToggleSketch").addEventListener("click", function (e) {
   }
 });
 ISE("#savscore").addEventListener("click", () => {
-  $.ajax({
-    method: 'POST',
-    url: location.href + "genps",
-    data: JSON.stringify({
+  fetch(location.href + "main-server-handling", {
+    method: "POST",
+    body: JSON.stringify({
       "mode": "save-score",
       "time_record": tm,
       "total_solved": tq,
       "score": (Math.round((((tq - tf) / tq) * 100) * Math.pow(10, 1)) / Math.pow(10, 1)) - (lsr * 0.5)
     }),
-    cache: false,
-    contentType: "application/json",
-    success: async function(re){
-      console.log(re);
-      ISE("#savscore").setAttribute("hidden", "");
-      alert("saved succesfully!");
-    }, error: (e) => { console.error("error is: ", e); }
-  });
+    headers: {"Content-Type":"application/json"}, cache:"no-cache"
+  }).then(res=>{
+    if(!res.ok){throw new Error(`Network response was not ok, status: ${res.status}`)}
+    return res.json();
+  }).then(re => {
+    console.log(re);
+    ISE("#savscore").setAttribute("hidden", "");
+    alert("saved succesfully!");
+  }).catch(e=> console.error("error is: ", e))
 });
 orinit();

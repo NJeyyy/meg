@@ -1,15 +1,15 @@
 (async function() {
   var megscore;
-  await $.ajax({ /* Gets score data from server */
+  await fetch(location.href + "main-server-handling", { /* Gets score data from server */
     method: 'POST',
-    url: location.href + "genps",
-    data: JSON.stringify({ "mode": "get-score" }),
-    contentType: "application/json",
-    success: (re) => {
-      console.log(re); megscore = re["sorted-response"];
-    },
-    error: (e) => { console.error("error is: ", e); }
-  });
+    headers: { 'Content-Type':'application/json' },
+    body: JSON.stringify({ "mode": "get-score" })
+  }).then(res=>{
+    if (!res.ok){throw new Error(`Network response was not ok, status: ${res.status}`)}
+    return res.json();
+  }).then(res=>{
+    console.log(res); megscore = res["sorted-response"];
+  }).catch(e=> console.error("error is: ", e))
 
   for (let i=0; i < megscore.length; i++) {
     const v = megscore[i];

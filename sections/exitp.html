@@ -21,13 +21,12 @@ color:black; width:max-content; margin-top:3vh;
 <image id="piclogo" src="assets/MEG_icon.png"/>
 <div id="partingtext">I hope you visit us again :D</div>
 <script>
-  $.ajax({
+  fetch(location.href + "main-server-handling", {
     method: 'POST',
-    url: location.href + "genps",
-    data: JSON.stringify({ "mode": "exit-game" }),
-    contentType: "application/json",
-    success: (re)=>{ console.log(re);
-    },
-    error: (e) => { console.error("error is: ", e); }
-  });
+    body: JSON.stringify({ mode: "exit-game" }),
+    headers: { 'Content-Type':'application/json' }
+  }).then(res=>{
+    if (!res.ok) { throw new Error(`HTTP error! status: ${res.status}`); }
+    return res.json();
+  }).then(res => console.log(re)).catch(e => console.error("error is: ", e));
 </script>

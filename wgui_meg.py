@@ -11,8 +11,11 @@ import sys # to terminate script&server
 
 os.chdir(os.path.abspath(os.path.dirname(__file__))) #set the working directory, so the script can be run anywhere
 setin=configparser.ConfigParser()
-setin.read("meg_stg.ini")
-isLocal = setin["DEFAULT"]["isLocal"]
+try:
+  setin.read("meg_stg.ini")
+  isLocal = setin["DEFAULT"]["isLocal"]
+except FileNotFoundError: #set default value if there's no saved-settings
+  isLocal=True
 
 itfp = bottle.Bottle()
 class EnableCors(object):
@@ -30,25 +33,26 @@ class EnableCors(object):
     return _enable_cors
 
 
-@itfp.route('/<filepath:path>')
+#=============================== ROUTE
+@itfp.route('/<filepath:path>') #allow static file access
 def serve_static(filepath):
     resp = static_file(filepath, root='./')
     resp.set_header("Cache-Control", "public, max-age=604800")
     return resp
-@itfp.route("/")
+@itfp.route("/") # load main html
 def loadp():
   return template("itf.html")
+  
 
-@itfp.route("/genpy")
-def generate_ply():
-  n1, n2, op, res=mathprob()
-  response.content_type = "application/json"
-  return json.dumps({"n1": n1, "n2": n2, "op": op, "res": res})
-
-@itfp.post("/genps")
+@itfp.post("/main-server-handling") # route to handle most of what works in between the server and the DOM(?)
 def getdata():
   gdata=request.json
-  if(gdata["mode"] == "exit-game"):
+  response.content_type = "application/json"
+  if (gdata["mode"] == "generate-problem"):
+    n1, n2, op, res=mathprob()
+    response.content_type = "application/json"
+    return json.dumps({"n1": n1, "n2": n2, "op": op, "res": res})
+  elif (gdata["mode"] == "exit-game"):
     print("Exiting.. 👋")
     for i in psutil.pids():
       if(psutil.Process(i).name() == "com.termux"):
@@ -56,7 +60,6 @@ def getdata():
     sys.stderr.close()
     return
   elif (gdata["mode"] == "save-score"):
-    response.content_type = "application/json"
     pfile="meg_score.json"
     if isLocal:
       try:
@@ -81,7 +84,7 @@ def getdata():
         json.dump(trd, f, indent=2, separators=(",", ": "))
       print("changes has been saved!")
     return {"status":"success", "response": gdata, "isLocal":isLocal, "processed_data":trd}
-  elif (gdata["mode"]=="get-score"):
+  elif (gdata["mode"] == "get-score"):
     try:
       with open("meg_score.json", "r") as f:
         f = json.load(f)
@@ -110,6 +113,15 @@ def getdata():
                         "time_record":v["time_record"], "total_solved":v["total_solved"],
                         "score":v["score"], "date_day":datekey_day})
     return {"status":"success", "raw-response":sendresp, "sorted-response":sortedresp}
+  elif (gdata["mode"] == "get-savedsettings"):
+    return {"status":"success", "response": dict(setin["DEFAULT"])}
+  elif (gdata["mode"] == "set-savedsettings"):
+    del gdata["mode"]
+    for i in gdata:
+      setin["DEFAULT"][i]=str(gdata[i])
+    with open('meg_stg.ini', 'w') as f:
+      setin.write(f)
+    return {"status":"success", "response": dict(setin["DEFAULT"])}
   else: return {"status":"ERROR", "response": "mode is unavailable", "giveback-response": gdata,}
 
 

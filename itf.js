@@ -1,4 +1,4 @@
-var itf_s = ["home-js", "startg-js", "credits", "gdesc", "lboard-js"]; // "setg", "expr"
+var itf_s = ["home-js", "startg-js", "credits", "gdesc", "lboard-js", "setg-js"]; //"expr"
 
 async function setpages(pagenames) {
   await waitFor(_=> document.body)
@@ -6,13 +6,15 @@ async function setpages(pagenames) {
   elementContainer.removeAttribute("style");
   elementContainer.setAttribute("style", "animation-name:to-load; animation-duration:1.7s; animation-iteration-count:1; animation-timing-function:linear;");
   const pagefiles = pagenames.replace("-js",  "")
-  const fetchloadctn = function(url, type){
+  const fetchloadctn = async function(url, type){
     fetch(url).then(resp=>{return resp.text();}).then(res=>{
       if(type=="html"){
         elementContainer.innerHTML = res;
+        return;
       } else if (type=="js"){
         let runscript=new Function(res);
         runscript();
+        return;
       }
     }).catch(err => {console.error(`error when fetching on ${type} in ${pagenames}: `, err);});
   }
@@ -25,7 +27,7 @@ async function setpages(pagenames) {
       document.head.appendChild(itf_sc);
     }
     itf_sc.setAttribute("href", "sections/" + pagefiles + ".css");
-    fetchloadctn(`sections/${pagefiles}.html`, "html");
+    await fetchloadctn(`sections/${pagefiles}.html`, "html");
     if(pagenames.match(/-js$/)){
       fetchloadctn(`sections/${pagefiles}.js`, "js");
     }
