@@ -7,7 +7,7 @@ setin=configparser.ConfigParser()
 try:
   setin.read("meg_stg.ini")
   maxnum=int(setin["DEFAULT"]["maxnum"])
-except FileNotFoundError: #set default value if there's no saved-settings
+except (FileNotFoundError, KeyError): #set default value if there's no saved-settings
   maxnum=99
 
 opran = {
