@@ -7,6 +7,9 @@
   --cp5: #046dfd;
   --cp6: #fddaaa;
   --cp7: #EEF3FD;
+  /* conversion of color-palette to filter for svg, only put these in filter property */
+  --vg_cp5: invert(31%) sepia(60%) saturate(6469%) hue-rotate(210deg) brightness(105%) contrast(98%);
+  --vg_fff: invert(100%) sepia(100%) saturate(0%) hue-rotate(305deg) brightness(103%) contrast(103%);
 }
 body{background-color:#fff;}
 input[type=number]::-webkit-outer-spin-button, /* Chrome, Safari, Edge, Opera */
@@ -24,6 +27,21 @@ input[type=number] { /* Firefox */
 }
 @media (max-width: 600px) { /* mobile view */
   #gbackbtn img {width:2rem; height:auto;}
+}
+
+/* current--Initial elements */
+#MobileOnly_PullFullScreen {
+  background: rgb(255, 141, 47);
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  top: -50px;
+  left: 45%;
+  transition: top 0.5s ease-in-out;
+}
+#MobileOnly_PullFullScreen[shown] {
+  top: 50px;
 }
 
 /* most-often used elements */

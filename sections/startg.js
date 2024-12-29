@@ -105,8 +105,8 @@ async function orinit() {
   // reset the value if reinitiate
   tq = tf = nitr = lsr = t = 0;
   qres = {}; tm = "";
-  ISE("#gpausebtn").classList.remove("fa-circle-pause"); // ↓↓
-  ISE("#gpausebtn").classList.add("fa-circle-play"); // just to make sure the button interface gonna be correct
+  await waitFor(_=> ISE("#plygnd"));
+  ISE("#gpausebtn").setAttribute("state", "pause"); // just to make sure the button interface gonna be correct
   if (ISE("canvas#sketch")) { ISE("canvas#sketch").remove(); } // to make sure it's gone, cuz idk what else to do..hehe :3c
   document.body.removeAttribute("style");
   ISE("#ToggleSketch").removeAttribute("lsr");
@@ -122,7 +122,8 @@ async function orinit() {
   let elm = document.createElement("div");
   elm.id = "notstarted"
   elm.setAttribute("style", `width:80vw;height:80vh;background:rgb(0 0 0 / 50%);position:fixed;top:10%;left:10%;border-radius:10px;display:grid;justify-content:center;align-items:center;user-select:none;`);
-  elm.innerHTML = `<i style="font-size:6rem; color:#FCB860; filter:drop-shadow(2px 3px 6px rgb(10 10 10 / 60%)); cursor:pointer;" class="fa-solid fa-play"></i>`;
+  elm.innerHTML = `<i></i>`;
+  elm.querySelector("i").setAttribute("style", `width:6rem;height:6rem;cursor:pointer; background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M97.8626 0.700891C87.0462 0.700891 76.4109 3.45792 66.9601 8.70813C57.3367 13.6138 49.2138 21.0289 43.4531 30.173C37.6093 39.4485 34.4198 50.1486 34.2309 61.1098L34.2282 61.4246V451.277L34.2309 451.591C34.4198 462.552 37.6093 473.253 43.4531 482.527C49.2138 491.674 57.3367 499.087 66.9601 503.994C76.4109 509.243 87.0462 512 97.8626 512C108.832 512 119.616 509.166 129.166 503.768C129.377 503.651 129.584 503.526 129.789 503.398L445.392 308.2C454.963 303.377 463.042 296.029 468.754 286.941C474.646 277.557 477.776 266.701 477.776 255.619C477.776 244.537 474.646 233.68 468.754 224.297C463.038 215.2 454.945 207.846 445.363 203.023L129.738 9.26958C129.549 9.15401 129.359 9.04185 129.166 8.93316C119.616 3.53672 108.832 0.700891 97.8626 0.700891Z" fill="white"/></svg>');`);
   document.body.appendChild(elm);
   elm.querySelector("i").addEventListener("click", () => { elm.remove(); strt = true; });
   await waitFor(_ => strt)
@@ -135,17 +136,16 @@ async function orinit() {
   }
 }
 document.getElementById("gpausebtn").addEventListener("click", (e) => {
+  const elm = ISE("#gpausebtn");
   if (!stpw) {
     clearInterval(binter);
     binter = setInterval(b, 100);
     stpw = true;
-    e.target.classList.remove("fa-circle-play");
-    e.target.classList.add("fa-circle-pause");
+    elm.setAttribute("state", "pause");
   } else {
     clearInterval(binter);
     stpw = false;
-    e.target.classList.remove("fa-circle-pause");
-    e.target.classList.add("fa-circle-play");
+    elm.setAttribute("state", "play");
   }
 });
 ISE("#pin-enter").addEventListener("click", () => {
