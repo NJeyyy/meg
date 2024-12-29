@@ -49,13 +49,13 @@ ISE("#p-output input").addEventListener("keyup", (e) => {
     ISE("#pin-enter").click();
   }
 });
-/*document.addEventListener("visibilitychange", () => {
+document.addEventListener("visibilitychange", () => {
   if (!document.getElementById("plygnd").hasAttribute("hidden") && !ISE("div#notstarted")) {
     document.getElementById("plygnd").setAttribute("hidden", "");
     endevalgame();
     alert("I end it!.. cuz you left me:(")
   }
-});*/
+});
 ISE("#tryg").addEventListener("click", orinit);
 
 

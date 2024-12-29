@@ -11,4 +11,4 @@
   *stopwatch didnt start when already enabled (on phone)
 - replace setting's parameter name from "isLocal" to something else thus modifying most of the other file code.
  But do that when you're gonna add the "save online" feature. im lazy rn ehe(｡･∀･)ﾉﾞ (planning on using cloud/database)
-- add more support for offline use
+- add more support for offline use (is it all..?)

@@ -21,12 +21,14 @@ itfp = bottle.Bottle()
 class EnableCors(object):
   name = 'enable_cors'
   api = 2
-  def apply(self, fn, context):
+  def apply(self, fn): # it previously have context as param, dunno for what tho it's not even being used
     def _enable_cors(*args, **kwargs):
       # set CORS headers
       response.headers['Access-Control-Allow-Origin'] = '*'
       response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, OPTIONS, DELETE'
       response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'
+      response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+      response.headers["Expires"] = "0"
       if bottle.request.method != 'OPTIONS':
         # actual request
         return fn(*args, **kwargs)
