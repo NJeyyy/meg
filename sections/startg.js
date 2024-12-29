@@ -1,14 +1,24 @@
 // ~~~~~  prepare playgrounds
 var enable_timer, isShaking; //isShaking is only applied to mobile device
-fetch(location.href + "meg_stg.ini") //get saved-settings
-  .then(re => re.text()).then(data => {
-    enable_timer = parseINIString(data).DEFAULT.enable_timer == "True" ? true : false;
-    isShaking = parseINIString(data).DEFAULT.isShaking == "True" ? true : false;
-  }).catch(e=>{
-    console.error("Error fetching saved-settings: ", e);
-    //set default settings instead
-    isShaking = enable_timer = false;
-  });
+var settingsData;
+fetch(location.href + "main-server-handling", { //get saved-settings
+  method: "POST", headers: {"Content-Type":"application/json"},
+  body: JSON.stringify({ "mode": "get-savedsettings" })
+}).then(re => {
+    if (!re.ok) {
+      throw new Error(`Network response when getting saved-settings was not ok, status: ${res.status}`);
+    }
+    return re.json();
+}).then(data => {
+  settingsData = data["response"];
+  enable_timer = settingsData.enable_timer == "True" ? true : false;
+  isShaking = settingsData.isShaking == "True" ? true : false;
+}).catch(e=>{
+  console.error("Error fetching saved-settings: ", e);
+  //set default settings instead
+  isShaking = enable_timer = false;
+});
+
 ISE("#gbackbtn").addEventListener("click", () => {
   clearInterval(binter); //make sure to clear the interval since it's not gonna be resetted when the page changed.
   setpages("home-js");
