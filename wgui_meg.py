@@ -39,7 +39,7 @@ class EnableCors(object):
 @itfp.route('/<filepath:path>') #allow static file access
 def serve_static(filepath):
     resp = static_file(filepath, root='./')
-    resp.set_header("Cache-Control", "public, max-age=604800")
+    resp.set_header("Cache-Control", "public, max-age=60") # revalidate cache every 60 seconds
     return resp
 @itfp.route("/") # load main html
 def loadp():
