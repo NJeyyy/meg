@@ -1,8 +1,8 @@
 var itf_s = ["home-js", "startg-js", "credits", "gdesc", "lboard-js", "setg-js"]; //"expr"
 
 async function setpages(pagenames) {
-  await waitFor(_=>document.body);
-  var elementContainer = document.body;
+  await waitFor(_=> ISE("#main-parent"));
+  var elementContainer = ISE("#main-parent");
   //elementContainer.removeAttribute("style");
   //elementContainer.setAttribute("style", "animation-name:to-load; animation-duration:1.7s; animation-iteration-count:1; animation-timing-function:linear;");
   const pagefiles = pagenames.replace("-js",  "")
